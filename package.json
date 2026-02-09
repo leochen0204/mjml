@@ -1,6 +1,6 @@
 {
   "name": "@leochen0204/grapesjs-mjml",
-  "version": "1.0.7",
+  "version": "1.0.7-fork-rc.0",
   "description": "MJML Componenets integration in GrapesJS",
   "main": "dist/index.js",
   "scripts": {
