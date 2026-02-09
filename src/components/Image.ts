@@ -46,7 +46,17 @@ export default (editor: Editor, { coreMjmlModel, coreMjmlView }: ComponentPlugin
           'padding-left': '25px',
           align: 'center',
         },
-        traits: ['href', 'rel', 'alt', 'title'],
+        traits: [
+          {
+            type: 'text',
+            name: 'src',
+            changeProp: 1,
+          },
+          'href',
+          'rel',
+          'alt',
+          'title',
+        ],
         void: false,
       },
 

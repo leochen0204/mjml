@@ -8,3 +8,5 @@ locale/
 *.log
 _index.html
 .idea
+
+.claude/settings.local.json
