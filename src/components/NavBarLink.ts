@@ -1,7 +1,7 @@
 // Specs: https://documentation.mjml.io/#mj-navbar-link
 import type { Editor } from 'grapesjs';
 import { ComponentPluginOptions } from '.';
-import { componentsToQuery, getName, isComponentType } from './utils';
+import { componentsToQuery, getName, isComponentType, expandPaddingShorthand } from './utils';
 import { type as typeNavBar } from './NavBar';
 
 export const type = 'mj-navbar-link';
@@ -12,14 +12,27 @@ export default (editor: Editor, { coreMjmlModel, coreMjmlView }: ComponentPlugin
     extend: 'link',
     model: {
       ...coreMjmlModel,
+      init() {
+        expandPaddingShorthand(this);
+        coreMjmlModel.init.call(this);
+      },
       defaults: {
         name: getName(editor, 'navLink'),
         draggable: componentsToQuery(typeNavBar),
         highlightable: false,
         stylable: [
-          'font-style', 'font-size', 'font-weight', 'font-family', 'color',
-          'text-decoration', 'text-transform',
-          'padding', 'padding-top', 'padding-left', 'padding-right', 'padding-bottom',
+          'font-style',
+          'font-size',
+          'font-weight',
+          'font-family',
+          'color',
+          'text-decoration',
+          'text-transform',
+          'padding',
+          'padding-top',
+          'padding-left',
+          'padding-right',
+          'padding-bottom',
         ],
         'style-default': {
           'font-size': '13px',
@@ -32,7 +45,6 @@ export default (editor: Editor, { coreMjmlModel, coreMjmlView }: ComponentPlugin
         traits: ['href'],
       },
     },
-
 
     view: {
       ...coreMjmlView,

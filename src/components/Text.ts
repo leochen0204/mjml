@@ -1,7 +1,7 @@
 // Specs: https://documentation.mjml.io/#mjml-text
 import type { Editor } from 'grapesjs';
 import { ComponentPluginOptions } from '.';
-import { componentsToQuery, getName, isComponentType } from './utils';
+import { componentsToQuery, getName, isComponentType, expandPaddingShorthand } from './utils';
 import { type as typeColumn } from './Column';
 import { type as typeHero } from './Hero';
 
@@ -15,6 +15,10 @@ export default (editor: Editor, { coreMjmlModel, coreMjmlView }: ComponentPlugin
 
     model: {
       ...coreMjmlModel,
+      init() {
+        expandPaddingShorthand(this);
+        coreMjmlModel.init.call(this);
+      },
       defaults: {
         name: getName(editor, 'text'),
         draggable: componentsToQuery([typeColumn, typeHero]),

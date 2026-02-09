@@ -1,10 +1,15 @@
 import type { Editor } from 'grapesjs';
-import { MJMLParsingOptions } from "mjml-core";
-import { MjmlParser } from "./parser";
+import { MJMLParsingOptions } from 'mjml-core';
+import { MjmlParser } from './parser';
 
 export const isComponentType = (type: string) => (el: Element) => (el.tagName || '').toLowerCase() === type;
 
-export function mjmlConvert (parser: MjmlParser, mjml: string, fonts: Record<string, string>, opts: Partial<MJMLParsingOptions> = {}) {
+export function mjmlConvert(
+  parser: MjmlParser,
+  mjml: string,
+  fonts: Record<string, string>,
+  opts: Partial<MJMLParsingOptions> = {},
+) {
   const options: MJMLParsingOptions = {
     useMjmlConfigOptions: false,
     mjmlConfigPath: undefined,
@@ -13,7 +18,7 @@ export function mjmlConvert (parser: MjmlParser, mjml: string, fonts: Record<str
   };
 
   // Check that fonts parameter is not empty for add to options
-  if (fonts && (Object.keys(fonts).length > 0 && fonts.constructor === Object)) {
+  if (fonts && Object.keys(fonts).length > 0 && fonts.constructor === Object) {
     // @ts-ignore
     options.fonts = fonts;
   }
@@ -23,7 +28,7 @@ export function mjmlConvert (parser: MjmlParser, mjml: string, fonts: Record<str
 
 export const componentsToQuery = (cmps: string | string[]): string => {
   const cmpsArr = Array.isArray(cmps) ? cmps : [cmps];
-  return cmpsArr.map(cmp => `[data-gjs-type="${cmp}"]`).join(', ');
+  return cmpsArr.map((cmp) => `[data-gjs-type="${cmp}"]`).join(', ');
 };
 
 export const getName = (editor: Editor, name: string): string => {
@@ -32,11 +37,59 @@ export const getName = (editor: Editor, name: string): string => {
 
 export function debounce<T extends (...params: any) => any>(clb: T, wait: number) {
   let timeout: NodeJS.Timeout;
-  return function(this: any, ...args: IArguments[]) {
+  return function (this: any, ...args: IArguments[]) {
     clearTimeout(timeout);
     timeout = setTimeout(() => {
       clearTimeout(timeout);
       clb.apply(this, args);
     }, wait);
   } as T;
-};
+}
+
+export function expandPaddingShorthand(component: any) {
+  const attrs = component.get('attributes') || {};
+
+  if (!('padding' in attrs)) return;
+
+  const padding = attrs.padding;
+  if (!padding || typeof padding !== 'string') return;
+
+  console.log('QQ', { padding });
+
+  const values = padding.trim().split(/\s+/);
+
+  if (values.length < 1 || values.length > 4) {
+    return;
+  }
+
+  let top, right, bottom, left;
+
+  switch (values.length) {
+    case 1:
+      top = right = bottom = left = values[0];
+      break;
+    case 2:
+      top = bottom = values[0];
+      right = left = values[1];
+      break;
+    case 3:
+      top = values[0];
+      right = left = values[1];
+      bottom = values[2];
+      break;
+    case 4:
+      [top, right, bottom, left] = values;
+      break;
+  }
+
+  attrs['padding-top'] = attrs['padding-top'] ?? top;
+  attrs['padding-right'] = attrs['padding-right'] ?? right;
+  attrs['padding-bottom'] = attrs['padding-bottom'] ?? bottom;
+  attrs['padding-left'] = attrs['padding-left'] ?? left;
+
+  delete attrs.padding;
+
+  component.set('attributes', attrs);
+
+  console.log(top, right, bottom, left);
+}
