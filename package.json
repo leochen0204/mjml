@@ -1,5 +1,5 @@
 {
-  "name": "grapesjs-mjml",
+  "name": "@leochen0204/grapesjs-mjml",
   "version": "1.0.7",
   "description": "MJML Componenets integration in GrapesJS",
   "main": "dist/index.js",
@@ -17,7 +17,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/GrapesJS/mjml.git"
+    "url": "https://github.com/leochen0204/mjml.git"
   },
   "keywords": [
     "grapesjs",
@@ -26,6 +26,9 @@
     "wysiwyg"
   ],
   "author": "Artur Arseniev",
+  "contributors": [
+    "Leo Chen <leochen0204>"
+  ],
   "license": "BSD-3-Clause",
   "dependencies": {
     "@types/mjml": "^4.7.4",
