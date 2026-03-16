@@ -25,6 +25,7 @@ import loadTitle from './Title';
 import loadPreview from './Preview';
 import loadBreakpoint from './Breakpoint';
 import loadAll from './All';
+import loadClass from './Class';
 import loadAttributes from './Attributes';
 import { RequiredPluginOptions, PluginOptions } from '..';
 
@@ -347,6 +348,7 @@ export default (editor: Editor, opt: RequiredPluginOptions) => {
     loadPreview,
     loadBreakpoint,
     loadAll,
+    loadClass,
     loadAttributes,
     ...opt.customComponents,
   ].forEach((module) => module(editor, compOpts));

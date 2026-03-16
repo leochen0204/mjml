@@ -42,6 +42,7 @@ export default {
         wrapper: 'Wrapper',
         raw: 'Raw',
         all: 'All',
+        class: 'Class',
         attributes: 'Attributes',
       },
     }
