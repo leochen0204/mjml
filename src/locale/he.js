@@ -37,9 +37,12 @@ export default {
         socialGroup: 'קבוצה חברתית',
         socialElement: 'אלמנט חברתי',
         spacer: 'מרווח',
+        table: 'טבלה',
         text: 'טקסט',
         wrapper: 'עוטף',
         raw: 'שורה',
+        all: 'הכל',
+        attributes: 'תכונות',
       },
     }
   },

@@ -37,9 +37,12 @@ export default {
         socialGroup: 'Widżet społecznościowy',
         socialElement: 'Element społecznościowy',
         spacer: 'Odstęp',
+        table: 'Tabela',
         text: 'Tekst',
         wrapper: 'Grupa elementów',
         raw: 'Surowy kod',
+        all: 'Wszystkie',
+        attributes: 'Atrybuty',
       },
     }
   },

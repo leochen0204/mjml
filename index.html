@@ -29,18 +29,7 @@
   </head>
 
   <body>
-    <div id="gjs" style="height: 0px; overflow: hidden">
-      <mjml>
-        <mj-body>
-          <mj-section background-color="#f0f0f0">
-            <mj-column border="10px solid #F45E43">
-              <mj-text font-family="Barlow">A first line of text</mj-text>
-              <mj-spacer height="50px" />
-            </mj-column>
-          </mj-section>
-        </mj-body>
-      </mjml>
-    </div>
+    <div id="gjs" style="height: 0px; overflow: hidden"></div>
 
     <script type="text/javascript">
       // Wait for the plugin to be injected by the dev server
@@ -49,15 +38,29 @@
           height: '100%',
           noticeOnUnload: false,
           storageManager: false,
-          fromElement: true,
           container: '#gjs',
+
+          deviceManager: {
+            devices: [
+              { id: 'desktop', name: 'Desktop', width: '600px' },
+              { id: 'tablet', name: 'Tablet', width: '480px' },
+              { id: 'mobile', name: 'Mobile portrait', width: '320px' },
+            ],
+          },
 
           plugins: ['@leochen0204/grapesjs-mjml'],
           pluginsOpts: {
             '@leochen0204/grapesjs-mjml': {
               columnsPadding: '',
+              useXmlParser: false,
             },
           },
+        });
+
+        window.editor.on('load', async () => {
+          const res = await fetch('./template.mjml');
+          const mjml = await res.text();
+          window.editor.setComponents(mjml);
         });
       };
     </script>

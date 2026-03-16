@@ -37,9 +37,12 @@ export default {
         socialGroup: 'Group Social',
         socialElement: 'Social Element',
         spacer: 'Spacer',
+        table: 'Table',
         text: 'Text',
         wrapper: 'Wrapper',
         raw: 'Raw',
+        all: 'All',
+        attributes: 'Attributes',
       },
     }
   },

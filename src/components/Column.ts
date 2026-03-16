@@ -3,6 +3,7 @@ import type { Editor } from 'grapesjs';
 import { ComponentPluginOptions } from '.';
 import { componentsToQuery, getName, isComponentType, mjmlConvert } from './utils';
 import { type as typeSection } from './Section';
+import { type as typeAttributes } from './Attributes';
 
 export const type = 'mj-column';
 
@@ -15,7 +16,7 @@ export default (editor: Editor, { opt, coreMjmlModel, coreMjmlView, sandboxEl }:
       ...coreMjmlModel,
       defaults: {
         name: getName(editor, 'column'),
-        draggable: componentsToQuery(typeSection),
+        draggable: componentsToQuery([typeSection, typeAttributes]),
         stylable: [
           'background-color',
           'vertical-align',

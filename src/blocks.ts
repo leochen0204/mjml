@@ -170,6 +170,31 @@ export default (editor: Editor, opts: RequiredPluginOptions) => {
     </mj-wrapper>`,
   });
 
+  addBlock('mj-table', {
+    label: getI18nLabel('table'),
+    media: `<svg viewBox="0 0 24 24">
+        <path fill="currentColor" d="M5,4H19A2,2 0 0,1 21,6V18A2,2 0 0,1 19,20H5A2,2 0 0,1 3,18V6A2,2 0 0,1 5,4M5,8V12H11V8H5M13,8V12H19V8H13M5,14V18H11V14H5M13,14V18H19V14H13Z" />
+    </svg>`,
+    content: `
+      <mj-table>
+        <tr style="border-bottom:1px solid #ecedee;text-align:left;padding:15px 0;">
+          <th style="padding: 0 15px 0 0;">Year</th>
+          <th style="padding: 0 15px;">Language</th>
+          <th style="padding: 0 0 0 15px;">Inspired from</th>
+        </tr>
+        <tr>
+          <td style="padding: 0 15px 0 0;">1995</td>
+          <td style="padding: 0 15px;">PHP</td>
+          <td style="padding: 0 0 0 15px;">C, Shell Unix</td>
+        </tr>
+        <tr>
+          <td style="padding: 0 15px 0 0;">1995</td>
+          <td style="padding: 0 15px;">JavaScript</td>
+          <td style="padding: 0 0 0 15px;">Scheme, Self</td>
+        </tr>
+    </mj-table>`,
+  });
+
   addBlock('mj-raw', {
     label: getI18nLabel('raw'),
     media: `<svg viewBox="0 0 24 24">

@@ -4,4 +4,5 @@ module.exports = {
   modulePaths: ["<rootDir>/src"],
   testMatch: ["<rootDir>/tests/specs/**/*.(t|j)s"],
   setupFiles: ["<rootDir>/tests/setup.js"],
+  setupFilesAfterEnv: ["@testing-library/jest-dom"],
 };

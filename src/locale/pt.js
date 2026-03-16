@@ -37,9 +37,12 @@ export default {
         socialGroup: 'Mídias sociais',
         socialElement: 'Mídia social',
         spacer: 'Espaçamento',
+        table: 'Tabela',
         text: 'Texto',
         wrapper: 'Wrapper',
         raw: 'Cru para',
+        all: 'Todos',
+        attributes: 'Atributos',
       },
     }
   },

@@ -19,7 +19,13 @@ import loadSpacer from './Spacer';
 import loadNavBar from './NavBar';
 import loadNavBarLink from './NavBarLink';
 import loadHero from './Hero';
+import loadTable from './Table';
 import loadRaw from './Raw';
+import loadTitle from './Title';
+import loadPreview from './Preview';
+import loadBreakpoint from './Breakpoint';
+import loadAll from './All';
+import loadAttributes from './Attributes';
 import { RequiredPluginOptions, PluginOptions } from '..';
 
 export type ComponentPluginOptions = {
@@ -181,13 +187,24 @@ export default (editor: Editor, opt: RequiredPluginOptions) => {
       };
     },
 
+    getHeadHtml() {
+      let comp = this.model.parent?.();
+      while (comp) {
+        if (comp.get('type') === 'mjml') {
+          return comp.findFirstType('mj-head')?.toHTML() ?? '';
+        }
+        comp = comp.parent?.();
+      }
+      return '';
+    },
+
     /**
      * Build the MJML of the current component
      */
     getInnerMjmlTemplate() {
       const { model } = this;
       const tagName = model.get('tagName');
-      const attr = model.getMjmlAttributes();
+      const attr = model.getAttrToHTML();
       let strAttr = '';
 
       for (let prop in attr) {
@@ -205,7 +222,9 @@ export default (editor: Editor, opt: RequiredPluginOptions) => {
      * Get the proper HTML string from the element containing compiled MJML template.
      */
     getTemplateFromEl(sandboxEl: any) {
-      return sandboxEl.firstChild.innerHTML;
+      const children = Array.from(sandboxEl.children) as HTMLElement[];
+      const el = children.find(c => c.style?.display !== 'none') ?? sandboxEl.firstChild;
+      return el.innerHTML;
     },
 
     /**
@@ -214,7 +233,9 @@ export default (editor: Editor, opt: RequiredPluginOptions) => {
     getTemplateFromMjml() {
       const mjmlTmpl = this.getMjmlTemplate();
       const innerMjml = this.getInnerMjmlTemplate();
-      const mjml = `${mjmlTmpl.start}${innerMjml.start}${innerMjml.end}${mjmlTmpl.end}`;
+      const headHtml = !mjmlTmpl.start.includes('<mj-head') ? this.getHeadHtml() : '';
+      const mjml = `${mjmlTmpl.start.replace('<mjml>', `<mjml>${headHtml}`)}${innerMjml.start}${innerMjml.end}${mjmlTmpl.end}`;
+      // console.log('[getTemplateFromMjml]', this.model.get('type'), mjml);
       const htmlOutput = mjmlConvert(opt.mjmlParser, mjml, opt.fonts);
       let html = htmlOutput.html;
       html = html.replace(/<body(.*)>/, '<body>');
@@ -314,7 +335,13 @@ export default (editor: Editor, opt: RequiredPluginOptions) => {
     loadNavBar,
     loadNavBarLink,
     loadHero,
+    loadTable,
     loadRaw,
+    loadTitle,
+    loadPreview,
+    loadBreakpoint,
+    loadAll,
+    loadAttributes,
     ...opt.customComponents,
   ].forEach((module) => module(editor, compOpts));
 };

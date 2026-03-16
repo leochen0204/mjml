@@ -4,6 +4,7 @@ import { ComponentPluginOptions } from '.';
 import { componentsToQuery, getName, isComponentType } from './utils';
 import { type as typeColumn } from './Column';
 import { type as typeHero } from './Hero';
+import { type as typeAttributes } from './Attributes';
 
 export const type = 'mj-button';
 
@@ -15,7 +16,7 @@ export default (editor:  Editor, { coreMjmlModel, coreMjmlView }: ComponentPlugi
       ...coreMjmlModel,
       defaults: {
         name: getName(editor, 'button'),
-        draggable: componentsToQuery([typeColumn, typeHero]),
+        draggable: componentsToQuery([typeColumn, typeHero, typeAttributes]),
         highlightable: false,
         stylable: ['width', 'height',
           'background-color', 'container-background-color',

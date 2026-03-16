@@ -37,9 +37,12 @@ export default {
         socialGroup: 'Groupe liens réseaux sociaux',
         socialElement: 'Lien réseau social',
         spacer: 'Espace',
+        table: 'Tableau',
         text: 'Texte',
         wrapper: 'Conteneur',
         raw: 'Brut',
+        all: 'Tous',
+        attributes: 'Attributs',
       },
     }
   },

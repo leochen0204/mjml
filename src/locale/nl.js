@@ -37,9 +37,12 @@ export default {
         socialGroup: 'Sociale groep',
         socialElement: 'Sociaal Element',
         spacer: 'Tussenlaag',
+        table: 'Tabel',
         text: 'Tekst',
         wrapper: 'Wikkellaag',
         raw: 'Rauwe',
+        all: 'Alle',
+        attributes: 'Attributen',
       },
     }
   },

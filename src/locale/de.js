@@ -37,9 +37,12 @@ export default {
         socialGroup: 'Social-Media Symbolleiste',
         socialElement: 'Social-Media Symbol',
         spacer: 'Abstand',
+        table: 'Tabelle',
         text: 'Text',
         wrapper: 'Wrapper',
         raw: 'Roh',
+        all: 'Alle',
+        attributes: 'Attribute',
       },
     }
   },

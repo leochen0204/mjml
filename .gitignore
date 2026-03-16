@@ -11,3 +11,5 @@ _index.html
 .mcp.json
 .claude/settings.local.json
 logs/*
+test-results/
+playwright-report/

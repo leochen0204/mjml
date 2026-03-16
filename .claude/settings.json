@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:grapesjs.com)",
+      "Bash(npm test:*)",
+      "Bash(npx playwright:*)",
+      "Bash(npx jest:*)",
+      "Bash(npx mjml:*)",
+      "Read(//tmp/**)"
+    ]
+  }
+}

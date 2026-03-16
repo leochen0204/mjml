@@ -9,6 +9,8 @@ export default (editor: Editor) => {
     isComponent: isComponentType(type),
     model: {
       defaults: {
+        name: 'Head',
+        layerable: false,
         draggable: false,
         droppable: componentsToQuery([
           'mj-preview',
@@ -16,7 +18,8 @@ export default (editor: Editor) => {
           'mj-style',
           'mj-font',
           'mj-title',
-          'mj-raw'
+          'mj-raw',
+          'mj-breakpoint'
         ]),
       },
     },

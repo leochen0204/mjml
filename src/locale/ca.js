@@ -37,8 +37,11 @@ export default {
         socialGroup: 'Grup Social',
         socialElement: 'Element Social',
         spacer: 'Separador',
+        table: 'Taula',
         text: 'Text',
         wrapper: 'Embolcall',
+        all: 'Tots',
+        attributes: 'Atributs',
       },
     }
   },

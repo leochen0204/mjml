@@ -4,6 +4,7 @@ import { ComponentPluginOptions } from '.';
 import { componentsToQuery, getName, isComponentType, expandPaddingShorthand } from './utils';
 import { type as typeBody } from './Body';
 import { type as typeWrapper } from './Wrapper';
+import { type as typeAttributes } from './Attributes';
 import { type as typeColumn } from './Column';
 import { type as typeGroup } from './Group';
 
@@ -21,7 +22,7 @@ export default (editor: Editor, { coreMjmlModel, coreMjmlView }: ComponentPlugin
       },
       defaults: {
         name: getName(editor, 'section'),
-        draggable: componentsToQuery([typeBody, typeWrapper]),
+        draggable: componentsToQuery([typeBody, typeWrapper, typeAttributes]),
         droppable: componentsToQuery([typeColumn, typeGroup]),
         'style-default': {
           'padding-left': '0px',
