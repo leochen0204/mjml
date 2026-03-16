@@ -52,6 +52,7 @@ export default (editor: Editor, opt: RequiredPluginOptions) => {
   let coreMjmlModel = {
     init() {
       const attrs = { ...this.get('attributes') };
+      const explicitAttrs = new Set(Object.keys(attrs));
       const style = { ...this.get('style-default'), ...this.get('style') };
 
       for (let prop in style) {
@@ -60,6 +61,7 @@ export default (editor: Editor, opt: RequiredPluginOptions) => {
         }
       }
 
+      this.set('_explicitAttrs', explicitAttrs);
       this.set('attributes', attrs);
       this.set('style', attrs);
       this.listenTo(this, 'change:style', this.handleStyleChange);
@@ -77,6 +79,10 @@ export default (editor: Editor, opt: RequiredPluginOptions) => {
     },
 
     handleStyleChange(m: any, v: any, opts: any) {
+      const changed = Object.keys(v || {});
+      const explicit = this.get('_explicitAttrs') || new Set<string>();
+      changed.forEach((k: string) => explicit.add(k));
+      this.set('_explicitAttrs', explicit);
       this.set('attributes', this.getStylesToAttributes(), opts);
     },
 
@@ -89,19 +95,19 @@ export default (editor: Editor, opt: RequiredPluginOptions) => {
     },
 
     /**
-     * This will avoid rendering default attributes
-     * @return {Object}
+     * 輸出 MJML 屬性，只省略「未明確設定且等於 style-default」的屬性，
+     * 避免覆蓋 mj-attributes 全域設定。
      */
     getAttrToHTML() {
       const attr = { ...this.get('attributes') };
       const style = { ...this.get('style-default') };
+      const explicit: Set<string> = this.get('_explicitAttrs') || new Set();
       delete attr.style;
       delete attr.id;
 
       for (let prop in attr) {
         const value = attr[prop];
-
-        if (value && value === style[prop]) {
+        if (!explicit.has(prop) && value && value === style[prop]) {
           delete attr[prop];
         }
       }
