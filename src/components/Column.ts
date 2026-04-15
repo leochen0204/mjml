@@ -114,7 +114,8 @@ export default (editor: Editor, { opt, coreMjmlModel, coreMjmlView, sandboxEl }:
         const styles = Object.keys(modelStyle)
           .filter((prop) => stylable.indexOf(prop) > -1)
           .map((prop) => `${prop}:${modelStyle[prop]};`);
-        const styleResult = `${attributes.style} ${styles.join(' ')} ${el.getAttribute('style')}`;
+        // MJML's inline style always has width:100%; model styles must come last to override it
+        const styleResult = `${el.getAttribute('style')} ${attributes.style} ${styles.join(' ')}`;
         el.setAttribute('style', styleResult);
         // #290 Fix double borders
         el.firstElementChild?.setAttribute('style', '');

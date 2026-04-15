@@ -3,6 +3,7 @@ module.exports = ({ config }) => {
     ...config,
     devServer: {
       ...config.devServer,
+      liveReload: false,
       static: {
         directory: './',
         publicPath: '/',

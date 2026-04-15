@@ -83,8 +83,8 @@ export default (editor: Editor, { coreMjmlModel, coreMjmlView }: ComponentPlugin
         if (getInnerMjmlTemplate && parentTag === typeBody) {
           let mjmlBody = coreMjmlView.getInnerMjmlTemplate.call(parentView);
           return {
-            start: `<mjml><mj-body>${mjmlBody.start}`,
-            end: `${mjmlBody.end}</mj-body></mjml>`,
+            start: `<mjml>${mjmlBody.start}`,
+            end: `${mjmlBody.end}</mjml>`,
           };
         } else {
           return {

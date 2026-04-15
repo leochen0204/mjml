@@ -242,7 +242,6 @@ export default (editor: Editor, opt: RequiredPluginOptions) => {
       const innerMjml = this.getInnerMjmlTemplate();
       const headHtml = !mjmlTmpl.start.includes('<mj-head') ? this.getHeadHtml() : '';
       const mjml = `${mjmlTmpl.start.replace('<mjml>', `<mjml>${headHtml}`)}${innerMjml.start}${innerMjml.end}${mjmlTmpl.end}`;
-      // console.log('[getTemplateFromMjml]', this.model.get('type'), mjml);
       const htmlOutput = mjmlConvert(opt.mjmlParser, mjml, opt.fonts);
       let html = htmlOutput.html;
       html = html.replace(/<body(.*)>/, '<body>');
