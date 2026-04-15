@@ -87,7 +87,7 @@ const plugin: Plugin<PluginOptions> = (editor, opt = {}) => {
     parserConfig.parserHtml = (input: string, options: any) => {
       const processed = encodeMjTableContent(convertSelfClosingMjmlTags(input));
       if (originalParserHtml) return originalParserHtml(processed, options);
-      return new DOMParser().parseFromString(processed, options?.htmlType || 'text/html').documentElement as HTMLElement;
+      return new DOMParser().parseFromString(processed, options?.htmlType || 'text/html').body as HTMLElement;
     };
   }
 
