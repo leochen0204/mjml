@@ -19,7 +19,6 @@ import loadSpacer from './Spacer';
 import loadNavBar from './NavBar';
 import loadNavBarLink from './NavBarLink';
 import loadHero from './Hero';
-import loadTable from './Table';
 import loadRaw from './Raw';
 import loadTitle from './Title';
 import loadPreview from './Preview';
@@ -341,7 +340,6 @@ export default (editor: Editor, opt: RequiredPluginOptions) => {
     loadNavBar,
     loadNavBarLink,
     loadHero,
-    loadTable,
     loadRaw,
     loadTitle,
     loadPreview,

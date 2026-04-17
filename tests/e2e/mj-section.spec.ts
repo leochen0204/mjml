@@ -151,6 +151,32 @@ test("column 混用 vertical-align top/middle 時中點不對齊（符合 MJML �
   expect(Math.abs(col1Mid - col2Mid)).toBeGreaterThan(2);
 });
 
+test("等寬三欄（不設 width）在 canvas 中並排顯示", async ({ page }) => {
+  await page.evaluate(() => {
+    (window as any).editor.setComponents(
+      `<mjml><mj-body><mj-section>
+        <mj-column><mj-text>A</mj-text></mj-column>
+        <mj-column><mj-text>B</mj-text></mj-column>
+        <mj-column><mj-text>C</mj-text></mj-column>
+      </mj-section></mj-body></mjml>`
+    );
+  });
+  await page.waitForTimeout(500);
+
+  const frame = page.frameLocator(".gjs-frame");
+  const columns = frame.locator("[data-gjs-type='mj-column']");
+
+  const col1Width = await columns.nth(0).evaluate(el => el.getBoundingClientRect().width);
+  const col2Width = await columns.nth(1).evaluate(el => el.getBoundingClientRect().width);
+  const col3Width = await columns.nth(2).evaluate(el => el.getBoundingClientRect().width);
+  const total = col1Width + col2Width + col3Width;
+
+  // 三欄等寬，各佔約 33.33%
+  expect(col1Width / total).toBeCloseTo(0.3333, 2);
+  expect(col2Width / total).toBeCloseTo(0.3333, 2);
+  expect(col3Width / total).toBeCloseTo(0.3333, 2);
+});
+
 test("column 未設定 vertical-align 預設為 top", async ({ page }) => {
   await page.evaluate(() => {
     (window as any).editor.setComponents(

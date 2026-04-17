@@ -55,7 +55,7 @@
     "@types/testing-library__jest-dom": "^5.14.9",
     "ajv": "^8.12.0",
     "eslint": "^8.23.0",
-    "grapesjs": "^0.21.2",
+    "grapesjs": "^0.22.15",
     "grapesjs-cli": "^4.1.1",
     "jest": "^24.9.0",
     "jsdom": "^26.1.0",

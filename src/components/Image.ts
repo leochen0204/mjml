@@ -85,7 +85,7 @@ export default (editor: Editor, { coreMjmlModel, coreMjmlView }: ComponentPlugin
 
       getMjmlTemplate() {
         return {
-          start: `<mjml><mj-body width="auto"><mj-column>`,
+          start: `<mjml><mj-body><mj-column>`,
           end: `</mj-column></mj-body></mjml>`,
         };
       },

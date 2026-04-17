@@ -7,15 +7,6 @@ export const isComponentType = (type: string) => (el: Element) => (el.tagName ||
 export const convertSelfClosingMjmlTags = (mjml: string): string =>
   mjml.replace(/<(mj-[a-z-]+)(\s[^>]*)?\s*\/>/g, '<$1$2></$1>');
 
-// 瀏覽器 HTML parser 的 foster parenting 機制會將 <table>/<tr>/<td> 從未知元素內移出，
-// 導致 <mj-table> 的 innerHTML 在解析後變空。
-// 此函式在進入 parser 前將 <mj-table> 的 innerHTML 編碼為 data-content 屬性，
-// 繞過結構重排邏輯，由 isComponent 再 decode 還原內容。
-export const encodeMjTableContent = (mjml: string): string =>
-  mjml.replace(/<mj-table(\s[^>]*)?>(\s[\s\S]*?)<\/mj-table>/g, (_, attrs = '', content: string) => {
-    const encoded = encodeURIComponent(content);
-    return `<mj-table${attrs} data-content="${encoded}"></mj-table>`;
-  });
 
 export function mjmlConvert(
   parser: MjmlParser,

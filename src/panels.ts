@@ -49,7 +49,7 @@ export default (editor: Editor, opts: RequiredPluginOptions) => {
 
     const devicePanel = Panels.addPanel({ id: 'devices-c' } as any);
     const deviceBtns = devicePanel.get('buttons');
-    deviceBtns.add([
+    deviceBtns?.add([
       {
         id: cmdDeviceDesktop,
         command: cmdDeviceDesktop,

@@ -113,7 +113,7 @@ export default (editor: Editor, { opt, coreMjmlModel, coreMjmlView, sandboxEl }:
         const stylable = model.get('stylable') as string[];
         const styles = Object.keys(modelStyle)
           .filter((prop) => stylable.indexOf(prop) > -1)
-          .map((prop) => `${prop}:${modelStyle[prop]};`);
+          .map((prop) => `${prop}:${(modelStyle as Record<string, any>)[prop]};`);
         // MJML's inline style always has width:100%; model styles must come last to override it
         const styleResult = `${el.getAttribute('style')} ${attributes.style} ${styles.join(' ')}`;
         el.setAttribute('style', styleResult);

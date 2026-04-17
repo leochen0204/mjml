@@ -8,7 +8,6 @@ export const initEditor = () =>
       container: "#gjs",
       plugins: [grapesJSMJML],
     });
-    editor.getModel().loadOnStart();
     editor.on("change:readyLoad", () => resolve(editor));
   });
 

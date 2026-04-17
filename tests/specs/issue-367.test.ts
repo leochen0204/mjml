@@ -35,7 +35,6 @@ describe('Line Height', () => {
     });
     editor = e;
 
-    editor.getModel().loadOnStart();
     editor.on('change:readyLoad', () => done());
   });
 

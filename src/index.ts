@@ -6,7 +6,7 @@ import mjml2html from './components/parser';
 import en from './locale/en';
 import loadPanels from './panels';
 import loadStyle from './style';
-import { convertSelfClosingMjmlTags, encodeMjTableContent } from './components/utils';
+import { convertSelfClosingMjmlTags } from './components/utils';
 import { PluginOptions } from './types';
 
 export * from './types';
@@ -31,7 +31,6 @@ const plugin: Plugin<PluginOptions> = (editor, opt = {}) => {
       'mj-hero',
       'mj-wrapper',
       'mj-raw',
-      'mj-table', 
     ],
     block: () => ({}),
     codeViewerTheme: 'hopscotch',
@@ -83,11 +82,9 @@ const plugin: Plugin<PluginOptions> = (editor, opt = {}) => {
     editor.Parser.getConfig().optionsHtml!.htmlType = 'text/xml';
   } else {
     const parserConfig = editor.Parser.getConfig();
-    const originalParserHtml = parserConfig.parserHtml;
-    parserConfig.parserHtml = (input: string, options: any) => {
-      const processed = encodeMjTableContent(convertSelfClosingMjmlTags(input));
-      if (originalParserHtml) return originalParserHtml(processed, options);
-      return new DOMParser().parseFromString(processed, options?.htmlType || 'text/html').body as HTMLElement;
+    parserConfig.optionsHtml = {
+      ...parserConfig.optionsHtml,
+      preParser: (str: string) => convertSelfClosingMjmlTags(str),
     };
   }
 
