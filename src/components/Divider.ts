@@ -29,6 +29,7 @@ export default (editor: Editor, { coreMjmlModel, coreMjmlView }: ComponentPlugin
           'padding-bottom': '10px',
           'padding-right': '25px',
           'padding-left': '25px',
+          'align': 'center',
         },
         stylable: [
           'padding',
@@ -37,6 +38,7 @@ export default (editor: Editor, { coreMjmlModel, coreMjmlView }: ComponentPlugin
           'padding-right',
           'padding-bottom',
           'width',
+          'align',
           'container-background-color',
           'border-detached',
           'border-width',

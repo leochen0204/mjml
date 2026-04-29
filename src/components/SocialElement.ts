@@ -16,18 +16,21 @@ export default (editor: Editor, { coreMjmlModel, coreMjmlView }: ComponentPlugin
         name: getName(editor, 'socialElement'),
         draggable: componentsToQuery(typeSocial),
         stylable: [
-          'icon-size', 'text-decoration', 'align', 'font-family', 'font-size', 'line-height',
+          'text-decoration',
+          'align', 'font-family', 'font-size', 'font-weight', 'font-style', 'line-height',
           'padding', 'padding-top', 'padding-left', 'padding-right', 'padding-bottom',
           'border-radius', 'border-top-left-radius', 'border-top-right-radius', 'border-bottom-left-radius', 'border-bottom-right-radius',
           'background-color',
           'color',
           'vertical-align',
+          'icon-size', 'icon-height', 'icon-padding', 'icon-position', 'text-padding',
         ],
         'style-default': {
           'align': 'center',
           'font-size': '13px',
           'line-height': '22px',
           'vertical-align': 'middle',
+          'text-decoration': 'none',
         },
         traits: [
           {
@@ -56,6 +59,23 @@ export default (editor: Editor, { coreMjmlModel, coreMjmlView }: ComponentPlugin
           },
           { name: 'src' },
           { name: 'href' },
+          {
+            type: 'select',
+            name: 'target',
+            label: 'Target',
+            options: [
+              { id: '', label: 'Default' },
+              { id: '_blank', label: '_blank' },
+              { id: '_self', label: '_self' },
+              { id: '_parent', label: '_parent' },
+              { id: '_top', label: '_top' },
+            ],
+          },
+          { type: 'text', name: 'rel', label: 'Rel' },
+          { type: 'text', name: 'alt', label: 'Alt' },
+          { type: 'text', name: 'title', label: 'Title' },
+          { type: 'text', name: 'srcset', label: 'Srcset' },
+          { type: 'text', name: 'sizes', label: 'Sizes' },
         ],
       },
     },
@@ -85,12 +105,23 @@ export default (editor: Editor, { coreMjmlModel, coreMjmlView }: ComponentPlugin
         }
       },
 
+      getInnerMjmlTemplate() {
+        const base = coreMjmlView.getInnerMjmlTemplate.call(this);
+        // &#8203;（零寬空格）確保 MJML 一定輸出文字 td，canvas 才能顯示文字。
+        // 僅影響 canvas sandbox 渲染，不影響實際 MJML 序列化輸出。
+        return {
+          start: base.start,
+          end: `&#8203;${base.end}`,
+        };
+      },
+
       getTemplateFromEl(sandboxEl: any) {
-        return sandboxEl.querySelector('tr > td > table').innerHTML;
+        const table = sandboxEl.querySelector('table[style*="float:none"]');
+        return table.innerHTML;
       },
 
       getChildrenSelector() {
-        return 'img';
+        return 'tbody > tr > td + td a, tbody > tr > td + td span';
       }
     },
   });

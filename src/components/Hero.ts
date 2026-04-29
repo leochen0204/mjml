@@ -24,12 +24,28 @@ export default (editor: Editor, { coreMjmlModel, coreMjmlView }: ComponentPlugin
         droppable: componentsToQuery([typeText, typeButton, typeImage, typeDivider, typeNavbar, typeSocial, typeSpacer]),
         stylable: [
           'background-color', 'background-height', 'background-position', 'background-url',
-          'background-width', 'css-class', 'height', 'mode', 'padding', 'padding-top',
-          'padding-left', 'padding-right', 'padding-bottom', 'vertical-align', 'width'
+          'background-width', 'css-class', 'height', 'padding', 'padding-top',
+          'padding-left', 'padding-right', 'padding-bottom', 'vertical-align', 'width',
+          'border-radius',
+          'inner-background-color',
+          // TODO(mjml-v5): inner-padding 在 mjml-browser v4 canvas 無效（div 路徑未套用），升級 v5 後確認
+          'inner-padding', 'inner-padding-top', 'inner-padding-right', 'inner-padding-bottom', 'inner-padding-left',
         ],
         'style-default': {
-          'vertical-align': 'top'
-        }
+          'vertical-align': 'top',
+          'background-color': '#ffffff',
+        },
+        traits: [
+          {
+            type: 'select',
+            name: 'mode',
+            label: 'Mode',
+            options: [
+              { id: 'fluid-height', label: 'Fluid Height' },
+              { id: 'fixed-height', label: 'Fixed Height' },
+            ],
+          },
+        ],
       },
     },
     view: {
@@ -37,6 +53,10 @@ export default (editor: Editor, { coreMjmlModel, coreMjmlView }: ComponentPlugin
       tagName: 'div',
       attributes: {
         style: 'display: table; width: 100%',
+      },
+
+      init() {
+        coreMjmlView.init.call(this);
       },
 
       getMjmlTemplate() {
@@ -47,7 +67,7 @@ export default (editor: Editor, { coreMjmlModel, coreMjmlView }: ComponentPlugin
       },
 
       getChildrenSelector() {
-        return 'table tr td';
+        return '.mj-hero-content';
       },
 
     }

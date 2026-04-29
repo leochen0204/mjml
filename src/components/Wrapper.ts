@@ -1,7 +1,7 @@
 // Specs: https://documentation.mjml.io/#mjml-wrapper
 import type { Editor } from 'grapesjs';
 import { ComponentPluginOptions } from '.';
-import { componentsToQuery, getName, isComponentType } from './utils';
+import { componentsToQuery, getName, isComponentType, expandPaddingShorthand, expandBackgroundPositionShorthand } from './utils';
 import { type as typeBody } from './Body';
 import { type as typeSection } from './Section';
 
@@ -13,11 +13,43 @@ export default (editor: Editor, { coreMjmlModel, coreMjmlView }: ComponentPlugin
 
     model: {
       ...coreMjmlModel,
+      init() {
+        expandPaddingShorthand(this);
+        expandBackgroundPositionShorthand(this);
+        coreMjmlModel.init.call(this);
+      },
       defaults: {
         name: getName(editor, 'wrapper'),
         draggable: componentsToQuery(typeBody),
         droppable: componentsToQuery(typeSection),
-        traits:[
+        stylable: [
+          'text-align',
+          'padding',
+          'padding-top',
+          'padding-left',
+          'padding-right',
+          'padding-bottom',
+          'background-color',
+          'background-url',
+          'background-repeat',
+          'background-size',
+          'background-position-x',
+          'background-position-y',
+          'gap',
+          'border-radius',
+          'border',
+          'border-width',
+          'border-style',
+          'border-color',
+        ],
+        'style-default': {
+          'padding-left': '0px',
+          'padding-right': '0px',
+          'padding-top': '20px',
+          'padding-bottom': '20px',
+          'text-align': 'center',
+        },
+        traits: [
           'id',
           'title',
           {
@@ -26,7 +58,16 @@ export default (editor: Editor, { coreMjmlModel, coreMjmlView }: ComponentPlugin
             name: 'full-width',
             valueTrue: 'full-width',
             valueFalse: '',
-         }
+          },
+          {
+            type: 'select',
+            name: 'direction',
+            label: 'Direction',
+            options: [
+              { id: 'ltr', label: 'LTR' },
+              { id: 'rtl', label: 'RTL' },
+            ],
+          },
         ],
       },
 

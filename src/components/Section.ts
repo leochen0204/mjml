@@ -1,7 +1,7 @@
 // Specs: https://documentation.mjml.io/#mj-section
 import type { Editor } from 'grapesjs';
 import { ComponentPluginOptions } from '.';
-import { componentsToQuery, getName, isComponentType, expandPaddingShorthand } from './utils';
+import { componentsToQuery, getName, isComponentType, expandPaddingShorthand, expandBackgroundPositionShorthand } from './utils';
 import { type as typeBody } from './Body';
 import { type as typeWrapper } from './Wrapper';
 import { type as typeAttributes } from './Attributes';
@@ -18,6 +18,7 @@ export default (editor: Editor, { coreMjmlModel, coreMjmlView }: ComponentPlugin
       ...coreMjmlModel,
       init() {
         expandPaddingShorthand(this);
+        expandBackgroundPositionShorthand(this);
         coreMjmlModel.init.call(this);
       },
       defaults: {
@@ -30,6 +31,7 @@ export default (editor: Editor, { coreMjmlModel, coreMjmlView }: ComponentPlugin
           'padding-top': '20px',
           'padding-bottom': '20px',
           'text-align': 'center',
+          'background-position': 'top center',
         },
         stylable: [
           'text-align',
@@ -42,6 +44,8 @@ export default (editor: Editor, { coreMjmlModel, coreMjmlView }: ComponentPlugin
           'background-url',
           'background-repeat',
           'background-size',
+          'background-position-x',
+          'background-position-y',
           'border-radius',
           'border-top-left-radius',
           'border-top-right-radius',
@@ -61,6 +65,15 @@ export default (editor: Editor, { coreMjmlModel, coreMjmlView }: ComponentPlugin
             name: 'full-width',
             valueTrue: 'full-width',
             valueFalse: '',
+          },
+          {
+            type: 'select',
+            name: 'direction',
+            label: 'Direction',
+            options: [
+              { id: 'ltr', label: 'LTR' },
+              { id: 'rtl', label: 'RTL' },
+            ],
           },
         ],
       },
@@ -100,9 +113,23 @@ export default (editor: Editor, { coreMjmlModel, coreMjmlView }: ComponentPlugin
         } else return 'table > tbody > tr > td';
       },
 
+      postRender() {
+        const parent = this.model.parent();
+        if (parent?.attributes.tagName !== typeWrapper) return;
+        const gap = parent.getStyle()?.['gap'] || parent.getAttributes()?.['gap'];
+        if (!gap) return;
+        const siblings = parent.get('components');
+        const isFirst = siblings?.indexOf(this.model) === 0;
+        this.el.style.marginTop = isFirst ? '' : gap;
+      },
+
       init() {
         coreMjmlView.init.call(this);
         this.listenTo(this.model.get('components'), 'add remove', this.render);
+        const parent = this.model.parent();
+        if (parent?.attributes.tagName === typeWrapper) {
+          this.listenTo(parent, 'change:style change:attributes', this.postRender);
+        }
       },
     },
   });

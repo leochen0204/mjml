@@ -19,16 +19,18 @@ export default (editor: Editor, { coreMjmlModel, coreMjmlView }: ComponentPlugin
         draggable: componentsToQuery([typeColumn, typeHero]),
         droppable: componentsToQuery(typeSocialElement),
         stylable: [
-          'icon-size', 'text-decoration', 'align', 'font-family', 'font-size', 'line-height',
+          'text-decoration', 'align', 'font-family', 'font-size', 'font-weight', 'font-style', 'line-height',
           'padding', 'padding-top', 'padding-left', 'padding-right', 'padding-bottom',
           'border-radius', 'border-top-left-radius', 'border-top-right-radius', 'border-bottom-left-radius', 'border-bottom-right-radius',
           'container-background-color',
           'color',
+          'icon-size', 'icon-height', 'icon-padding', 'inner-padding',
         ],
         'style-default': {
           'align': 'center',
-          'icon-size': '20px',
           'font-size': '13px',
+          'font-weight': 'normal',
+          'font-style': 'normal',
           'line-height': '22px',
         },
         traits: [
@@ -40,7 +42,7 @@ export default (editor: Editor, { coreMjmlModel, coreMjmlView }: ComponentPlugin
               { value: 'horizontal', name: 'Horizontal' },
               { value: 'vertical', name: 'Vertical' },
             ]
-          }
+          },
         ],
       },
     },

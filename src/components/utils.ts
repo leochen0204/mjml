@@ -50,6 +50,43 @@ export function debounce<T extends (...params: any) => any>(clb: T, wait: number
   } as T;
 }
 
+export function expandBackgroundPositionShorthand(component: any) {
+  const attrs = component.get('attributes') || {};
+
+  if (!('background-position' in attrs)) return;
+
+  const position = attrs['background-position'];
+  if (!position || typeof position !== 'string') return;
+
+  const values = position.trim().split(/\s+/);
+  const xOnly = new Set(['left', 'right']);
+  const yOnly = new Set(['top', 'bottom']);
+
+  let x = 'center';
+  let y = 'center';
+
+  if (values.length === 1) {
+    const v = values[0];
+    if (xOnly.has(v)) x = v;
+    else if (yOnly.has(v)) y = v;
+    else x = y = v;
+  } else if (values.length === 2) {
+    const [v1, v2] = values;
+    if (yOnly.has(v1)) { y = v1; x = v2; }
+    else if (xOnly.has(v1)) { x = v1; y = v2; }
+    else if (yOnly.has(v2)) { y = v2; x = v1; }
+    else if (xOnly.has(v2)) { x = v2; y = v1; }
+    else { x = v1; y = v2; }
+  }
+
+  attrs['background-position-x'] = attrs['background-position-x'] ?? x;
+  attrs['background-position-y'] = attrs['background-position-y'] ?? y;
+
+  delete attrs['background-position'];
+  component.set('attributes', attrs);
+}
+
+
 export function expandPaddingShorthand(component: any) {
   const attrs = component.get('attributes') || {};
 

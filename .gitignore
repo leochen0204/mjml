@@ -13,3 +13,5 @@ _index.html
 logs/*
 test-results/
 playwright-report/
+.claude
+openspec

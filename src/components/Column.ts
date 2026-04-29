@@ -35,10 +35,28 @@ export default (editor: Editor, { opt, coreMjmlModel, coreMjmlView, sandboxEl }:
           'padding-left',
           'padding-right',
           'padding-bottom',
+          'inner-background-color',
+          'inner-border',
+          'inner-border-top',
+          'inner-border-right',
+          'inner-border-bottom',
+          'inner-border-left',
+          'inner-border-radius',
         ],
         'style-default': {
           'vertical-align': 'top',
         },
+        traits: [
+          {
+            type: 'select',
+            name: 'direction',
+            label: 'Direction',
+            options: [
+              { id: 'ltr', label: 'LTR' },
+              { id: 'rtl', label: 'RTL' },
+            ],
+          },
+        ],
       },
     },
 
@@ -139,7 +157,10 @@ export default (editor: Editor, { opt, coreMjmlModel, coreMjmlView, sandboxEl }:
       },
 
       getChildrenSelector() {
-        return 'table';
+        const attrs = this.model.getAttributes();
+        const hasPadding = ['padding', 'padding-top', 'padding-right', 'padding-bottom', 'padding-left']
+          .some(k => attrs[k] != null && attrs[k] !== '');
+        return hasPadding ? 'td > table' : 'table';
       },
     },
   });

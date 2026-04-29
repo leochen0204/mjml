@@ -18,10 +18,11 @@ export default (editor: Editor, { opt, coreMjmlModel, coreMjmlView, sandboxEl }:
         draggable: componentsToQuery([typeColumn, typeHero]),
         droppable: componentsToQuery(typeNavBarLink),
         'style-default': {
-          // TODO
+          'align': 'center',
         },
         stylable: [
-          // TODO
+          'align',
+          'padding', 'padding-top', 'padding-left', 'padding-right', 'padding-bottom',
         ],
         traits: [
           {
@@ -33,6 +34,7 @@ export default (editor: Editor, { opt, coreMjmlModel, coreMjmlView, sandboxEl }:
               { value: '', name: 'OFF' },
             ],
           },
+          { type: 'text', name: 'base-url', label: 'Base URL' },
         ],
       },
     },

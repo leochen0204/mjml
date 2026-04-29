@@ -16,10 +16,10 @@ MJML 元件整合 GrapesJS 的外掛。
 - `view.getChildrenSelector()`：可編輯內容的 selector
 
 ### Canvas 渲染流程
-MJML → GrapesJS sandbox（getMjmlTemplate 包裝）→ mjml-core → iframe DOM
+MJML → GrapesJS sandbox（getMjmlTemplate 包裝）→ mjml-browser → iframe DOM
 
 ### 元件設計模式
-詳見 `docs/component-patterns.md`，涵蓋四種 extend 策略、解析流程、渲染流程、style ↔ attributes 同步機制。
+詳見 `docs/mjml-plugin-guide.md`，涵蓋解析流程、渲染流程、stylable vs traits 判斷原則、style ↔ attributes 同步機制。
 
 ### 重要工具
 - `editor.Commands.run("mjml-code-to-html")`：整份文件轉 HTML
