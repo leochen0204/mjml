@@ -42,6 +42,8 @@ export default {
         wrapper: 'Embolcall',
         all: 'Tots',
         attributes: 'Atributs',
+        carousel: 'Carrusel',
+        carouselImage: 'Imatge del carrusel',
       },
     }
   },

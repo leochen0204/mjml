@@ -43,6 +43,8 @@ export default {
         raw: 'Brut',
         all: 'Tous',
         attributes: 'Attributs',
+        carousel: 'Carrousel',
+        carouselImage: 'Image du carrousel',
       },
     }
   },

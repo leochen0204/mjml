@@ -26,6 +26,8 @@ import loadBreakpoint from './Breakpoint';
 import loadAll from './All';
 import loadClass from './Class';
 import loadAttributes from './Attributes';
+import loadCarousel from './Carousel';
+import loadCarouselImage from './CarouselImage';
 import { RequiredPluginOptions, PluginOptions } from '..';
 
 export type ComponentPluginOptions = {
@@ -347,6 +349,8 @@ export default (editor: Editor, opt: RequiredPluginOptions) => {
     loadAll,
     loadClass,
     loadAttributes,
+    loadCarousel,
+    loadCarouselImage,
     ...opt.customComponents,
   ].forEach((module) => module(editor, compOpts));
 };

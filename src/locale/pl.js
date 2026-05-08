@@ -43,6 +43,8 @@ export default {
         raw: 'Surowy kod',
         all: 'Wszystkie',
         attributes: 'Atrybuty',
+        carousel: 'Karuzela',
+        carouselImage: 'Obraz karuzeli',
       },
     }
   },

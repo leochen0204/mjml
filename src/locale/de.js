@@ -43,6 +43,8 @@ export default {
         raw: 'Roh',
         all: 'Alle',
         attributes: 'Attribute',
+        carousel: 'Karussell',
+        carouselImage: 'Karussell-Bild',
       },
     }
   },

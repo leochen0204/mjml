@@ -43,6 +43,8 @@ export default {
         raw: 'Rauwe',
         all: 'Alle',
         attributes: 'Attributen',
+        carousel: 'Carrousel',
+        carouselImage: 'Carrouselafbeelding',
       },
     }
   },

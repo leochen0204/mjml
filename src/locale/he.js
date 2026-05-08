@@ -43,6 +43,8 @@ export default {
         raw: 'שורה',
         all: 'הכל',
         attributes: 'תכונות',
+        carousel: 'קרוסלה',
+        carouselImage: 'תמונת קרוסלה',
       },
     }
   },

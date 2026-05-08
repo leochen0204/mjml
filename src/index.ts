@@ -30,6 +30,7 @@ const plugin: Plugin<PluginOptions> = (editor, opt = {}) => {
       'mj-navbar-link',
       'mj-hero',
       'mj-wrapper',
+      'mj-carousel',
       'mj-raw',
     ],
     block: () => ({}),

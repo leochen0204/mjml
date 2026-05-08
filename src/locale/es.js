@@ -42,6 +42,8 @@ export default {
         wrapper: 'Envoltura',
         all: 'Todos',
         attributes: 'Atributos',
+        carousel: 'Carrusel',
+        carouselImage: 'Imagen del carrusel',
       },
     }
   },

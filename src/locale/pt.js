@@ -43,6 +43,8 @@ export default {
         raw: 'Cru para',
         all: 'Todos',
         attributes: 'Atributos',
+        carousel: 'Carrossel',
+        carouselImage: 'Imagem do carrossel',
       },
     }
   },

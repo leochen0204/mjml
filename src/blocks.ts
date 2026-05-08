@@ -195,6 +195,18 @@ export default (editor: Editor, opts: RequiredPluginOptions) => {
     </mj-table>`,
   });
 
+  addBlock('mj-carousel', {
+    label: getI18nLabel('carousel'),
+    media: `<svg viewBox="0 0 24 24">
+      <path fill="currentColor" d="M2,6H4V18H2V6M5,6H19V18H5V6M20,6H22V18H20V6M7,9V15L12,12L7,9M17,9L12,12L17,15V9Z" />
+    </svg>`,
+    content: `<mj-carousel>
+      <mj-carousel-image src="https://placehold.co/300x200" />
+      <mj-carousel-image src="https://placehold.co/300x200" />
+      <mj-carousel-image src="https://placehold.co/300x200" />
+    </mj-carousel>`,
+  });
+
   addBlock('mj-raw', {
     label: getI18nLabel('raw'),
     media: `<svg viewBox="0 0 24 24">

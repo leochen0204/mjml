@@ -44,6 +44,8 @@ export default {
         all: 'All',
         class: 'Class',
         attributes: 'Attributes',
+        carousel: 'Carousel',
+        carouselImage: 'Carousel Image',
       },
     }
   },
