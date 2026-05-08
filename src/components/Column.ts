@@ -132,8 +132,7 @@ export default (editor: Editor, { opt, coreMjmlModel, coreMjmlView, sandboxEl }:
         const styles = Object.keys(modelStyle)
           .filter((prop) => stylable.indexOf(prop) > -1)
           .map((prop) => `${prop}:${(modelStyle as Record<string, any>)[prop]};`);
-        // MJML's inline style always has width:100%; model styles must come last to override it
-        const styleResult = `${el.getAttribute('style')} ${attributes.style} ${styles.join(' ')}`;
+        const styleResult = `${attributes.style} ${styles.join(' ')} ${el.getAttribute('style')}`;
         el.setAttribute('style', styleResult);
         // #290 Fix double borders
         el.firstElementChild?.setAttribute('style', '');
@@ -142,9 +141,16 @@ export default (editor: Editor, { opt, coreMjmlModel, coreMjmlView, sandboxEl }:
 
       getMjmlTemplate() {
         // Need it for responsive columns
-        let cols = this.model.collection.length - 1;
-        cols = cols ? cols : 0;
-        let addColmn = Array(cols).fill('<mj-column></mj-column>').join('');
+        const cols = Math.max((this.model.collection.length - 1), 0);
+        const addColmn = Array(cols).fill('<mj-column></mj-column>').join('');
+        const isInGroup = this.model.parent()?.get('type') === 'mj-group';
+
+        if (isInGroup) {
+          return {
+            start: `<mjml><mj-body><mj-section><mj-group>`,
+            end: `${addColmn}</mj-group></mj-section></mj-body></mjml>`,
+          };
+        }
 
         return {
           start: `<mjml><mj-body><mj-section>`,
@@ -153,7 +159,11 @@ export default (editor: Editor, { opt, coreMjmlModel, coreMjmlView, sandboxEl }:
       },
 
       getTemplateFromEl(sandboxEl: any) {
-        return sandboxEl.firstChild.querySelector('div > table > tbody > tr > td > div');
+        const isInGroup = this.model.parent()?.get('type') === 'mj-group';
+        const selector = isInGroup
+          ? 'div > table > tbody > tr > td > div > div'
+          : 'div > table > tbody > tr > td > div';
+        return sandboxEl.firstChild.querySelector(selector);
       },
 
       getChildrenSelector() {
