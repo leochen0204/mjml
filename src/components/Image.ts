@@ -54,11 +54,7 @@ export default (editor: Editor, { coreMjmlModel, coreMjmlView }: ComponentPlugin
           'font-size': '13px',
         },
         traits: [
-          {
-            type: 'text',
-            name: 'src',
-            changeProp: 1,
-          },
+          { name: 'src', changeProp: 1 },
           'href',
           {
             type: 'select',
@@ -99,6 +95,16 @@ export default (editor: Editor, { coreMjmlModel, coreMjmlView }: ComponentPlugin
         }
 
         return style;
+      },
+
+      // src is not in stylable, so Component.setStyle strips it from the style/attributes
+      // sync cycle. Store it directly on model.src and read it back in getAttrToHTML.
+      getAttrToHTML() {
+        const attr = coreMjmlModel.getAttrToHTML.call(this);
+        const src = this.get('src');
+        if (src) attr.src = src;
+        else delete attr.src;
+        return attr;
       },
     },
 
