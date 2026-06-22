@@ -118,6 +118,9 @@ export default (editor: Editor, opt: RequiredPluginOptions) => {
           property: 'background-url',
           type: 'file',
         }, {
+          property: 'background-size',
+          type: 'text',
+        }, {
           property: 'background-position-x',
           name: 'Background Position X',
           type: 'select',

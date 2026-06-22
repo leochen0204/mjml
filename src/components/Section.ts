@@ -31,7 +31,6 @@ export default (editor: Editor, { coreMjmlModel, coreMjmlView }: ComponentPlugin
           'padding-top': '20px',
           'padding-bottom': '20px',
           'text-align': 'center',
-          'background-position': 'top center',
         },
         stylable: [
           'text-align',
