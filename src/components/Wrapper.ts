@@ -30,9 +30,6 @@ export default (editor: Editor, { coreMjmlModel, coreMjmlView }: ComponentPlugin
           'padding-right',
           'padding-bottom',
           'background-color',
-          'background-url',
-          'background-repeat',
-          'background-size',
           'background-position-x',
           'background-position-y',
           'gap',
@@ -52,6 +49,9 @@ export default (editor: Editor, { coreMjmlModel, coreMjmlView }: ComponentPlugin
         traits: [
           'id',
           'title',
+          'background-url',
+          'background-repeat',
+          'background-size',
           {
             type: 'checkbox',
             label: 'Full width',
