@@ -71,7 +71,13 @@ export default (editor: Editor, opt: RequiredPluginOptions) => {
     },
 
     handleAttributeChange(m: any, v: any, opts: any) {
-      this.setStyle(this.get('attributes'), opts);
+      // Use `v` (the event value) instead of `this.get('attributes')`.
+      // In GrapesJS >=0.22, dataResolverWatchers replaces the attributes object
+      // before this handler runs, so `this.get('attributes')` may already be a
+      // different object that has lost non-style traits (e.g. alt, href).
+      // `v` is the original value from the Backbone change:attributes event and
+      // is guaranteed to reflect what was just set.
+      this.setStyle(v, opts);
     },
 
     getStylesToAttributes() {
