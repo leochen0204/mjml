@@ -65,7 +65,8 @@ export default (editor: Editor, opt: RequiredPluginOptions) => {
 
       this.set('_explicitAttrs', explicitAttrs);
       this.set('attributes', attrs);
-      this.set('style', attrs);
+      const { style: _htmlStyleAttr, ...styleAttrs } = attrs;
+      this.set('style', styleAttrs);
       this.listenTo(this, 'change:style', this.handleStyleChange);
       this.listenTo(this, 'change:attributes', this.handleAttributeChange);
     },

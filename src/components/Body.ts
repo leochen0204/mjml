@@ -52,7 +52,7 @@ export default (editor: Editor, { coreMjmlModel, coreMjmlView }: ComponentPlugin
       renderStyle() {
         this.getChildrenContainer().style.maxWidth = 'none';
         this.getChildrenContainer().style.width = '100%';
-        this.el.setAttribute('style', `${this.el.getAttribute('style') + this.attributes.style}`);
+        this.el.style.cssText = this.attributes.style;
       },
 
       rerender() {
