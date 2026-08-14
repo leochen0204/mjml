@@ -130,6 +130,16 @@ npx playwright test mj-section
 npx playwright test mj-attributes
 ```
 
+## 發佈
+
+```bash
+# Bump prerelease 版號並建立 commit（e.g. 1.0.7-fork-rc.11 → 1.0.7-fork-rc.12）
+npm version prerelease --preid=fork-rc -m "Release v%s"
+
+npm run build
+npm publish --tag next --access public
+```
+
 ## 授權
 
 BSD-3-Clause
